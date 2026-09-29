@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "tsc -b && node --env-file-if-exists=.env dist/index.js",
+    "start":"node --env-file-if-exists=.env dist/index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1"
+  }
+}

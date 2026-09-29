@@ -1,0 +1,22 @@
+{
+  "name": "ws",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "tsc -b && node --env-file-if-exists=.env dist/index.js",
+    "start":"node --env-file-if-exists=.env dist/index.js "
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "@types/ws": "^8.18.2",
+    "ws": "^8.22.0"
+  }
+}
