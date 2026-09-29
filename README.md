@@ -6,7 +6,7 @@ This Turborepo starter is maintained by the Turborepo core team.
 
 Run the following command:
 
-```sh
+```shladCLWDL
 npx create-turbo@latest
 ```
 
