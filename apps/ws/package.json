@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "build": "tsc",
     "dev": "tsc -b && node --env-file-if-exists=.env dist/index.js",
     "start":"node --env-file-if-exists=.env dist/index.js "
   },
