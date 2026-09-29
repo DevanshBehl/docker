@@ -1,18 +1,28 @@
 FROM oven/bun:1
+
 WORKDIR /usr/src/app
 
-# Install deps first so this layer is cached until a manifest changes
+# Copy dependency manifests first for Docker layer caching
 COPY package.json bun.lock turbo.json ./
 COPY packages ./packages
 COPY apps/web/package.json ./apps/web/package.json
+
+# Install dependencies
 RUN bun install
 
+# Copy web application source
 COPY apps/web ./apps/web
-# Builds @repo/db (prisma generate + tsc) and then web. No database needed.
-RUN DATABASE_URL=postgresql://build:build@localhost:5432/build bunx turbo run build --filter=web
+
+# Database URL required during the Next.js build
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
+# Build the web application
+RUN bunx turbo run build --filter=web
 
 ENV NODE_ENV=production
+
 EXPOSE 3000
 
-# DATABASE_URL is supplied at runtime; apply pending migrations, then start
+# Apply database migrations and start the web app
 CMD ["sh", "-c", "cd packages/db && bunx prisma migrate deploy && cd ../.. && bun run start:web"]
