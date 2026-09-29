@@ -12,9 +12,9 @@ npx create-turbo@latest
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+This Turborepo includes the following packages/apps: added k
 
-### Apps and Packages
+### Apps and  Packages
 
 - `docs`: a [Next.js](https://nextjs.org/) app
 - `web`: another [Next.js](https://nextjs.org/) app
