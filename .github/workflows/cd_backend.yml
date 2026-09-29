@@ -25,3 +25,25 @@ jobs:
           file: ./docker/Dockerfile.backend
           push: true
           tags: devanshbehl/todo-app-backend:${{ github.sha }}
+      
+      - name: Deploy to DigitalOcean
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 600 ~/ssh_key
+
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -i ~/ssh_key \
+            root@143.110.250.238 \
+            "
+              docker pull devanshbehl/todo-app-backend:${{ github.sha }}
+
+              docker stop user_backend || true
+              docker rm user_backend || true
+
+              docker run -d \
+                --name user_backend \
+                -p 3001:3001 \
+                --env-file /root/.env \
+                devanshbehl/todo-app-backend:${{ github.sha }}
+            "
